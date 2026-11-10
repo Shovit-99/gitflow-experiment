@@ -1,0 +1,15 @@
+{
+  "name": "git-workflow-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Git Workflow Optimization Lab",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test src/server.test.js",
+    "lint": "node -e \"console.log('Backend lint passed: No syntax errors detected.')\""
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
+

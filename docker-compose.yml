@@ -1,0 +1,32 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gitlab-staging-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=staging
+      - PORT=5000
+      - ENABLE_TASK_EXPORT=true
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:5000/api/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gitlab-staging-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=staging
+    depends_on:
+      backend:
+        condition: service_healthy
+
